@@ -475,12 +475,12 @@
                     @foreach($products as $Product_Item)
                     <tr>
                         <th scope="row">1</th>
-                        <td>{{$Product_Item->name}}</td>
+                            <td>{{$Product_Item->name}}</td>
                         <td>
                             <img src="{{ asset('images/'.$Product_Item->image_path)}}" alt="image" style="width: 100px; height: 100px;">
                         </td>
                         <td>{{$Product_Item->description}}</td>
-                        <td>{{$Product_Item->category_id}}</td>
+                        <td>{{$Product_Item->category->name}}</td>
                         <td>{{$Product_Item->price}}</td>
                         <td>{{$Product_Item->tags}}</td>
                         <td>

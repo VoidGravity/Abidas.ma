@@ -4,9 +4,9 @@
             <img class="rounded-pill img-fluid" width="65" src="https://uniim1.shutterfly.com/ng/services/mediarender/THISLIFE/021036514417/media/23148907008/medium/1501685726/enhance" alt="">
             <div class="ms-2">
                 <h5 class="fs-6 mb-0">
-                    <a class="text-decoration-none" href="#">Jone Doe</a>
+                    <a class="text-decoration-none" href="#">Abidas Official</a>
                 </h5>
-                <p class="mt-1 mb-0">Lorem ipsum dolor sit amet consectetur.</p>
+                <p class="mt-1 mb-0">Abdias a7san site dyal t9acher fl3alem, sl3a n9ya mn tanger</p>
             </div>
         </div>
 
@@ -19,6 +19,7 @@
                 <a href="{{url('product')}}"> Product</a>
                 
             </li>
+            <tr></tr>
             <li >
                 <a href="{{url('category')}}">Category</a>
             </li>

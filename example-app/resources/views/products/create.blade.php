@@ -485,10 +485,9 @@
                         <input type="text" name="tags" placeholder="Your Product's tags"
                             class="py-2 px-4 bg-gray-800 text-white rounded-md focus:outline-none mb-4" required />
                             <select name="category_id" class="py-2 px-4 bg-gray-800 text-white rounded-md focus:outline-none mb-4" required>
-                                <option value="1">Select a Tag</option>
-                                <option value="1">category 1</option>
-                                <option value="2">category 2</option>
-                                <option value="3">category 3</option>
+                                @foreach ($category as $item)
+                                    <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                @endforeach
                                 <!-- Add more options as needed -->
                             </select>
                             
