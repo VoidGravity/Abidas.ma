@@ -16,44 +16,13 @@
 
         <ul class="categories list-unstyled">
             <li >
-                <a href="#"> Dashboard</a>
+                <a href="{{url('product')}}"> Product</a>
                 
             </li>
             <li >
-                <a href="#"> File manager</a>
-            </li>
-            <li  >
-                
-            <a href="#"> Calender</a>
-                <ul class="sidebar-dropdown list-unstyled">
-                    <li><a href="#">Lorem ipsum</a></li>
-                    <li><a href="#">ipsum dolor</a></li>
-                    <li><a href="#">dolor ipsum</a></li>
-                    <li><a href="#">amet consectetur</a></li>
-                    <li><a href="#">ipsum dolor sit</a></li>
-                </ul>
+                <a href="{{url('category')}}">Category</a>
             </li>
             
-            <li class="">
-               <a href="#"> Settings</a>
-                <ul class="sidebar-dropdown list-unstyled">
-                    <li><a href="#">Lorem ipsum</a></li>
-                    <li><a href="#">ipsum dolor</a></li>
-                    <li><a href="#">dolor ipsum</a></li>
-                    <li><a href="#">amet consectetur</a></li>
-                    <li><a href="#">ipsum dolor sit</a></li>
-                </ul>
-            </li>
-            <li  >
-                <a href="#"> Components</a>
-                <ul class="sidebar-dropdown list-unstyled">
-                    <li><a href="#">Lorem ipsum</a></li>
-                    <li><a href="#">ipsum dolor</a></li>
-                    <li><a href="#">dolor ipsum</a></li>
-                    <li><a href="#">amet consectetur</a></li>
-                    <li><a href="#">ipsum dolor sit</a></li>
-                </ul>
-            </li>
             
             
         </ul>
