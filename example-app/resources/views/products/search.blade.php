@@ -429,7 +429,7 @@
 </head>
 
 <body>
-    @include('sidebar')
+    @include('inc.sidebar')
 
 
     <section id="wrapper">

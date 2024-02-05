@@ -431,8 +431,7 @@
 </head>
 
 <body>
-    //linking the sidebar.php file using blade
-    @include('sidebar')
+    @include('inc.sidebar')
 
 
     <section id="wrapper">

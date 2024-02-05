@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthentificationContoller;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -42,4 +43,8 @@ Route::post('/category/{id}/edit',[ CategoryController::class, 'update']);
 //search
 Route::post('/search',[ ProductController::class, 'search']);
 // Route::get('/search', [ProductController::class, 'liveSearch']);
+
+//auth
+Route::get('/login',[AuthentificationContoller::class,"login"]);
+Route::get('/register',[AuthentificationContoller::class,"register"]);
 
