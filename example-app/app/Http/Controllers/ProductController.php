@@ -25,8 +25,8 @@ class ProductController extends Controller
     {
         $category = Category::get();
         // $product = Product::with('category')->get();
-        
-        return view('products.create',compact('category'));
+
+        return view('products.create', compact('category'));
     }
 
     /**
@@ -34,12 +34,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'description' => 'required',
-        //     'price' => 'required',
-        //     'category_id' => 'required',
-        // ]);
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'category_id' => 'required',
+        ]);
         // Product::create(
         //     [
         //         'name' => $request->name,
@@ -80,12 +80,13 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
+
         // $product = Product::findorfail($id);
         // return view('products.edit', compact('product'));
         $product = Product::findorfail($id);
         $category = Category::get();
         // dd($product);
-        return view('products.edit',compact('product','category'));
+        return view('products.edit', compact('product', 'category'));
     }
 
     /**
@@ -93,6 +94,12 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'category_id' => 'required',
+        ]);
         // $product= Product::findorfail($id);
         // $product->update($request->all());
         // return redirect()->back();
@@ -113,7 +120,6 @@ class ProductController extends Controller
             $product->update($request->all());
             return redirect()->back();
         }
-        
     }
 
     /**
@@ -124,5 +130,35 @@ class ProductController extends Controller
         $product = Product::findorfail($id);
         $product->delete();
         return redirect()->back();
+    }
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        $result = Product::where('name', 'like', "%" . $search . "%")->get();
+        return view('products.search', compact('result'));
+    }
+    public function liveSearch(Request $request)
+    {
+        $search = $request->search;
+        $products = Product::where('name', 'like', '%' . $search . '%')->get();
+
+        $output = '';
+        foreach ($products as $key => $product) {
+            $output .= '<tr>' .
+                '<td>' . ($key + 1) . '</td>' .
+                '<td>' . $product->name . '</td>' .
+                '<td><img src="' . asset('images/' . $product->image_path) . '" alt="image" style="width: 100px; height: 100px;"></td>' .
+                '<td>' . $product->description . '</td>' .
+                '<td>' . $product->category->name . '</td>' .
+                '<td>' . $product->price . '</td>' .
+                '<td>' . $product->tags . '</td>' .
+                '<td>' .
+                '<a href="' . url('product/' . $product->id . '/delete') . '" class="btn btn-danger">Delete</a>' .
+                '<a href="' . url('product/' . $product->id . '/edit') . '" class="btn btn-primary">Edit</a>' .
+                '</td>' .
+                '</tr>';
+        }
+
+        return response()->json($output);
     }
 }

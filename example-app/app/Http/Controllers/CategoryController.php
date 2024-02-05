@@ -29,6 +29,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+        ]);
         Category::create($request->all());
         return redirect('/category');
     }
@@ -55,6 +58,11 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required',
+            
+        ]);
+
         $category = Category::findorfail($id);
         $category->update($request->all());
         return redirect('/category');

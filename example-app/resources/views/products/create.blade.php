@@ -468,6 +468,7 @@
                 </div>
                 <div class="mt-8">
                     <form action="{{ url('product/create') }}" method="post" class="flex flex-col items-center" enctype="multipart/form-data">
+                        @csrf
                         <input type="text" name="name" placeholder="Your Product's Name"
                             class="py-2 px-4 bg-gray-800 text-white rounded-md focus:outline-none mb-4" required
                             @if (session('name')) value=" {{ old('name') }}" @endif />

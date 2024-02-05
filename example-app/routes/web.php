@@ -39,4 +39,7 @@ Route::post('/category/create',[ CategoryController::class, 'store']);
 Route::get('/category/{id}/delete',[ CategoryController::class, 'destroy']);
 Route::get('/category/{id}/edit',[ CategoryController::class, 'edit']);
 Route::post('/category/{id}/edit',[ CategoryController::class, 'update']);
+//search
+Route::post('/search',[ ProductController::class, 'search']);
+// Route::get('/search', [ProductController::class, 'liveSearch']);
 

@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
         @import 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet';
 
@@ -250,12 +251,12 @@
 
         .statis .box h3:after {
             content: "";
-            height: 2px;
-            width: 70%;
-            margin: auto;
-            background-color: rgba(255, 255, 255, 0.12);
-            display: block;
-            margin-top: 10px;
+ height: 2px;
+        width: 70%;
+        margin: auto;
+        background-color: rgba(255, 255, 255, 0.12);
+        display: block;
+        margin-top: 10px;
         }
 
         .statis .box i {
@@ -428,7 +429,6 @@
 </head>
 
 <body>
-    //linking the sidebar.php file using blade
     @include('sidebar')
 
 
@@ -436,28 +436,66 @@
         <nav class="navbar navbar-expand-md">
             <div class="container-fluid mx-2">
                 <div class="navbar-header">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggle-navbar" aria-controls="toggle-navbar" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#toggle-navbar" aria-controls="toggle-navbar" aria-expanded="false"
+                        aria-label="Toggle navigation">
                         <i class="uil-bars text-white"></i>
                     </button>
                     <a class="navbar-brand" href="#">admin<span class="main-color">Abidas</span></a>
                 </div>
                 <div class="collapse navbar-collapse" id="toggle-navbar">
-                    
+
                 </div>
             </div>
         </nav>
 
         <div class="p-4">
             <div class="welcome">
-                <div class="content rounded-3 p-3">
+                <div class="content rounded-3 p-3 d-flex justify-content-between">
                     <h1 class="fs-3">Welcome to Dashboard</h1>
-                    <p class="mb-0">Hello, welcome to your awesome dashboard!</p>
+                    
+                    <a href="{{ url('product/create') }}" class="btn btn-primary">Create</a>
                 </div>
             </div>
-            
-            <form action="{{ url('dashboard') }}"></form>
 
-           
+
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Tags</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($result as $Product_Item)
+                    <tr>
+                        <th scope="row">1</th>
+                            <td>{{$Product_Item->name}}</td>
+                        <td>
+                            <img src="{{ asset('images/'.$Product_Item->image_path)}}" alt="image" style="width: 100px; height: 100px;">
+                        </td>
+                        <td>{{$Product_Item->description}}</td>
+                        <td>{{$Product_Item->category->name}}</td>
+                        <td>{{$Product_Item->price}}</td>
+                        <td>{{$Product_Item->tags}}</td>
+                        <td>
+
+                            
+                            <a href="{{ url('product/'.$Product_Item->id.'/delete') }}" class="btn btn-danger">Delete</a>
+                            <a href="{{ url('product/'.$Product_Item->id.'/edit') }}" class="btn btn-primary">Edit</a>
+                        </td>
+                    </tr>
+                    @endforeach
+                    
+                </tbody>
+            </table>
+
         </div>
     </section>
 </body>

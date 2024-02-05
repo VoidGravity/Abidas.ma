@@ -453,6 +453,7 @@
             <div class="welcome">
                 <div class="content rounded-3 p-3 d-flex justify-content-between">
                     <h1 class="fs-3">Welcome to Dashboard</h1>
+                    
                     <a href="{{ url('product/create') }}" class="btn btn-primary">Create</a>
                 </div>
             </div>
