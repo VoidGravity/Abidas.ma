@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Document</title>
 </head>
 
@@ -12,12 +13,19 @@
     <div class="login-page">
         <div class="form">
             <h1 class="">Login</h1>
-            
-            <form class="login-form">
-                <input type="text" placeholder="username" />
-                <input type="password" placeholder="password" />
+            @if (session('fail'))
+            <div class="alert alert-danger">
+                {{ session('fail') }}
+            </div>
+            @endif
+           
+            <form class="login-form" method="post" action=" {{ route('auth.login')}} ">
+                @csrf
+                <input name="name" type="text" placeholder="username" />
+                <input name="password" type="password" placeholder="password" />
                 <button>login</button>
                 <p class="message">Not registered? <a href="{{url('/register')}}">Create an account</a></p>
+                <p class="message">Having trouble SinIn? <a href="{{url('/resetPassword')}}">Reset your password</a></p>
             </form>
         </div>
     </div>

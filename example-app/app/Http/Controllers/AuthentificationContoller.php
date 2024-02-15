@@ -2,7 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ForgetPasswordMail;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
+// use Str;
+
 
 class AuthentificationContoller extends Controller
 {
@@ -13,6 +21,22 @@ class AuthentificationContoller extends Controller
     {
         // return view('auth.login');
     }
+    public function ShowReset(){
+        return view('auth.resetPassword');
+    }
+    public function ResetPassord(Request $request){
+        $user = User::where('email', $request->email)->first();
+        if($user){
+            $user->remember_token = Str::random(30);
+            $user->save();
+            Mail::to($user->email)->send(new ForgetPasswordMail($user));
+            return redirect()->route('auth.login')->with('success', 'Reset password link has been sent to your email');
+        }
+        else{
+            return back()->with('fail', 'No account found for this email');
+        }
+    }
+    
     public function login()
     {
         return view('auth.login');
@@ -21,6 +45,58 @@ class AuthentificationContoller extends Controller
     {
         return view('auth.register');
     }
+    public function logout()
+    {
+        //custom logout without auth
+
+        // $request->session()->forget('LoggedUser');
+
+        return view('auth.login')->with('success', 'You are now logged out');
+        //flash message
+    }
+    public function check(Request $request)
+    {
+        // $credentials = [
+        //     'name' => $request->name, // Make sure 'name' is the correct field you use for login.
+        //     'password' => $request->password,
+        // ];
+        
+        $request->validate([
+            'name' => 'required',
+            'password' => 'required'
+        ]);
+        $user = User::where('name', $request->name)->first();
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
+                $request->session()->put('LoggedUser', $user->role);
+                return redirect('/product')->with('success', 'You are now logged in');
+            } else {
+                return back()->with('fail', 'Invalid password');
+            }
+        } else {
+            return back()->with('fail', 'No account found for this email');
+        }    
+    }
+
+    // public function check(Request $request)
+    // {
+    //     $request->validate([
+    //         'name' => 'required',
+    //         'password' => 'required'
+    //     ]);
+
+    //     $user = User::where('name', $request->name)->first();
+    //     if($user){
+    //         if(Hash::check($request->password, $user->password)){
+    //             $request->session()->put('LoggedUser', $user->id);
+    //             return redirect('/product')->with('success', 'You are now logged in');
+    //         }else{
+    //             return back()->with('fail', 'Invalid password');
+    //         }
+    //     }else{
+    //         return back()->with('fail', 'No account found for this email');
+    //     }
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -35,7 +111,25 @@ class AuthentificationContoller extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //validate
+        $request->validate([
+            'username' => 'required|min:3|max:16',
+            'email' => 'required',
+            'password' => 'required|confirmed|min:8',
+            // 'password' => 'required|confirmed|min:8|strong_password:8',
+        ]);
+        // User::create($request->all());
+        //mass asignement
+        User::create([
+            'name' => $request->username,
+            'email' => $request->email,
+            // hash the password 
+
+            'password' => Hash::make($request->password),
+            'address' => $request->address,
+            'role_id' => 20
+        ]);
+        return redirect('/login');
     }
 
     /**

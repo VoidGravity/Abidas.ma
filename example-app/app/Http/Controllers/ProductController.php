@@ -59,10 +59,14 @@ class ProductController extends Controller
             $requestData = $request->all();
             $requestData['image_path'] = $name;
             Product::create($requestData);
-            return redirect()->back();
+            //redirect to homescrean
+            return redirect()->route('product.index');
+        
+
+
         } else {
             Product::create($request->all());
-            return redirect()->back();
+            return redirect()->url('/product');
         }
         // Product::create($request->all());
     }
@@ -115,6 +119,7 @@ class ProductController extends Controller
             $product = Product::findorfail($id);
             $product->update($requestData);
             return redirect()->back();
+
         } else {
             $product = Product::findorfail($id);
             $product->update($request->all());

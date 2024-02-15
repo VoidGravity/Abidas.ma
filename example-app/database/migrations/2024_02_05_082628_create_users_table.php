@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamp('password_reset_token')->nullable();
             $table->string('password');
             $table->string('address');
-            $table->string('role');
+            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
 

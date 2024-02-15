@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sale;
 use Illuminate\Http\Request;
 
 class SaleController extends Controller
@@ -11,7 +12,8 @@ class SaleController extends Controller
      */
     public function index()
     {
-        //
+        $data = Sale::with('product', 'user')->get();
+        return view('sale.index',compact('data'));
     }
 
     /**
@@ -19,7 +21,7 @@ class SaleController extends Controller
      */
     public function create()
     {
-        //
+        return view('sale.create');
     }
 
     /**
@@ -27,7 +29,23 @@ class SaleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $request->validate([
+            
+        //     'quantity' => 'required',
+        //     'total' => 'required',
+        //     'payment_type' => 'required',
+            
+        // ]);
+        Sale::create($request->all());
+        return redirect()->route('sales.index')->with('success', 'Sale created successfully.');
+
+        // if (!$result) {
+        //     return redirect()->route('sales.index')->with('fail', 'Something went wrong.');
+        // } else {
+        //     return redirect()->route('sales.index')->with('success', 'Sale created successfully.');
+
+        // }
+        
     }
 
     /**
@@ -43,15 +61,23 @@ class SaleController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $sale = Sale::findorfail($id);
+        return view('sale.edit',compact('sale'));
     }
 
     /**
      * Update the specified resource in storage.
-     */
+     */ 
     public function update(Request $request, string $id)
     {
-        //
+        // $request->validate([
+        //     'quantity' => 'required',
+        //     'total' => 'required',
+        //     'payment_type' => 'required',
+        // ]);
+        $sale = Sale::findorfail($id);
+        $sale->update($request->all());
+        return redirect('/sales');
     }
 
     /**
@@ -59,6 +85,9 @@ class SaleController extends Controller
      */
     public function destroy(string $id)
     {
-        //
-    }
+        $sale = sale::findorfail($id);
+        $sale->delete();
+        return redirect('/sales');
+    }    
+    
 }

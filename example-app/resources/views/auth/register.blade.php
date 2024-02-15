@@ -14,11 +14,14 @@
         <div class="form">
             <h1 class="">Register</h1>
             
-            <form class="login-form">
-                <input type="text" placeholder="username" />
-                <input type="email" placeholder="Email" />
-                <input type="password" placeholder="password" />
-                <button >Sigin in</button>
+            <form class="login-form" method="post" action="{{ url('/register') }}">
+                @csrf
+                <input name="username" type="text" placeholder="username" />
+                <input name="email" type="email" placeholder="email" />
+                <input name="address" type="text" placeholder="address" />
+                <input name="password" type="password" placeholder="password" />
+                <input name="password_confirmation" type="password" placeholder="Confirm Password" />
+                <button type="submit">Sigin in</button>
                 <p class="message">You have an acount? <a href="{{url('/login')}}">LogIn</a></p>
             </form>
         </div>

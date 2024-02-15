@@ -7,6 +7,8 @@
     <title>Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+
     <style>
         @import 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet';
 
@@ -433,23 +435,9 @@
 
 
     <section id="wrapper">
-        <nav class="navbar navbar-expand-md">
-            <div class="container-fluid mx-2">
-                <div class="navbar-header">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#toggle-navbar" aria-controls="toggle-navbar" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <i class="uil-bars text-white"></i>
-                    </button>
-                    <a class="navbar-brand" href="#">admin<span class="main-color">Abidas</span></a>
-                </div>
-                <div class="collapse navbar-collapse" id="toggle-navbar">
+        @include('inc.nav')
 
-                </div>
-            </div>
-        </nav>
-
-        <div class="p-4">
+        <div class="p-4 text-white">
             <div class="welcome">
                 <div class="content rounded-3 p-3 d-flex justify-content-between">
                     <h1 class="fs-3">Welcome to Dashboard</h1>
@@ -458,7 +446,7 @@
             </div>
 
 
-            <table class="table table-dark">
+            <table class="table table-dark" id="myTable">
                 <thead>
                     <tr>
                         <th scope="col"></th>
@@ -487,6 +475,14 @@
 
         </div>
     </section>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready( function () {
+            $('#myTable').DataTable();
+        } );
+    </script>
 </body>
 
 </html>

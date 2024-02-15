@@ -15,12 +15,14 @@
 
 
     <div class="search position-relative text-center px-4 py-3 mt-2">
+        {{-- I need to add a condition for the search to switch based on the area --}}
         <form action="{{ url('search') }}" method="POST" class="d-flex justify-content-between">
+            @csrf
             {{-- <input type="text" id="liveSearchInput" class="form-control w-100 border-0" placeholder="Search here"> --}}
 
-            <input name="search" type="text" class="form-control w-100 border-0" placeholder="Search here">
+            {{-- <input name="search" type="text" class="form-control w-100 border-0" placeholder="Search here"> --}}
            
-            <button id="search" type="submit" class="btn btn-primary m-1">Search</button>
+            {{-- <button id="search" type="submit" class="btn btn-primary m-1">Search</button> --}}
 
         </form>
     </div>
@@ -34,6 +36,20 @@
         <li>
             <a href="{{ url('category') }}">Category</a>
         </li>
+        <li>
+            <a href="{{ route('sales.index') }}">Sales</a>
+       
+        </li>
+        <li>
+            <a href="{{ route('client.index') }}">Clients</a>
+        </li>
+        <li>
+            <a href="{{ route('permission.index') }}">Permissions</a>
+        </li>
+        <li>
+            <a href="{{ route('role.index') }}">Role</a>
+        </li>
+        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
         <script>

@@ -436,21 +436,7 @@
 
 
     <section id="wrapper">
-        <nav class="navbar navbar-expand-md">
-            <div class="container-fluid mx-2">
-                <div class="navbar-header">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                        data-bs-target="#toggle-navbar" aria-controls="toggle-navbar" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <i class="uil-bars text-white"></i>
-                    </button>
-                    <a class="navbar-brand" href="#">admin<span class="main-color">Abidas</span></a>
-                </div>
-                <div class="collapse navbar-collapse" id="toggle-navbar">
-
-                </div>
-            </div>
-        </nav>
+        @include('inc.nav')
 
         <div class="p-4">
             <div class="welcome">
@@ -478,8 +464,6 @@
                         <input type="text" name="price" placeholder="Your Product's Price"
                             class="py-2 px-4 bg-gray-800 text-white rounded-md focus:outline-none mb-4" required
                             @if (session('price')) value=" {{ old('price') }}" @endif />
-
-                                
                                 <input class="py-2 px-4 bg-gray-800 text-white rounded-md focus:outline-none mb-4" type="file" name="image_path" accept="image/*" required />
                                 
                             
