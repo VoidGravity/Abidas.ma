@@ -39,9 +39,9 @@ class ForgetPasswordMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'auth.resetPassword',
+            markdown: 'auth.sendResetPassword',
             with: [
-                'url' => $this->user,
+                'url' => route('auth.newPassword', ['token' => $this->user->remember_token]),
             ],
         );
     }

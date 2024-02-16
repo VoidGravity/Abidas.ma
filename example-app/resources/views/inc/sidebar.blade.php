@@ -18,11 +18,11 @@
         {{-- I need to add a condition for the search to switch based on the area --}}
         <form action="{{ url('search') }}" method="POST" class="d-flex justify-content-between">
             @csrf
-            {{-- <input type="text" id="liveSearchInput" class="form-control w-100 border-0" placeholder="Search here"> --}}
+            <input type="text" id="liveSearchInput" class="form-control w-100 border-0" placeholder="Search here">
 
             {{-- <input name="search" type="text" class="form-control w-100 border-0" placeholder="Search here"> --}}
            
-            {{-- <button id="search" type="submit" class="btn btn-primary m-1">Search</button> --}}
+            <button id="search" type="submit" class="btn btn-primary m-1">Search</button>
 
         </form>
     </div>

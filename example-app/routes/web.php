@@ -44,10 +44,12 @@ use Illuminate\Support\Facades\Route;
     Route::post('/login', [AuthentificationContoller::class, "check"])->name('auth.login');
     Route::get('/resetPassword', [AuthentificationContoller::class, "ShowReset"])->name('auth.resetPassword');
     Route::post('/resetPassword', [AuthentificationContoller::class, "ResetPassord"])->name('resetPassword');
+    Route::get('/newPassword/{token}', [AuthentificationContoller::class, "showNewPasswordForm"])->name('auth.showNewPasswordForm');
+    Route::post('/newPassword', [AuthentificationContoller::class, "newPassword"])->name('auth.newPassword');
     Route::get('/register', [AuthentificationContoller::class, "register"])->name('auth.signin');
     Route::post('/register', [AuthentificationContoller::class, "store"]);
 // });
-// Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'role'], function () {
 
 
     //permissions 
@@ -71,6 +73,8 @@ use Illuminate\Support\Facades\Route;
     Route::get('/product/{id}/delete', [ProductController::class, 'destroy']);
     Route::get('/product/{id}/edit', [ProductController::class, 'edit']);
     Route::post('/product/{id}/edit', [ProductController::class, 'update']);
+    Route::post('/filter', [ProductController::class, 'liveFilter']);
+
     //category
     Route::get('/category', [CategoryController::class, 'index']);
     Route::get('/category/create', [CategoryController::class, 'create']);
@@ -89,9 +93,9 @@ use Illuminate\Support\Facades\Route;
     //clients
     Route::get('/client', [UserController::class, 'index'])->name('client.index');
     //search
-    Route::post('/search', [ProductController::class, 'search']);
-    // Route::get('/search', [ProductController::class, 'liveSearch']);
+    // Route::post('/search', [ProductController::class, 'search']);
+    Route::get('/search', [ProductController::class, 'liveSearch']);
 
     //auth
     Route::delete('/logout', [AuthentificationContoller::class, 'logout'])->name('logout');
-// });
+});

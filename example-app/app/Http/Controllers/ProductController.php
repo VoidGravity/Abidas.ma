@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -61,9 +62,6 @@ class ProductController extends Controller
             Product::create($requestData);
             //redirect to homescrean
             return redirect()->route('product.index');
-        
-
-
         } else {
             Product::create($request->all());
             return redirect()->url('/product');
@@ -119,7 +117,6 @@ class ProductController extends Controller
             $product = Product::findorfail($id);
             $product->update($requestData);
             return redirect()->back();
-
         } else {
             $product = Product::findorfail($id);
             $product->update($request->all());
@@ -166,4 +163,26 @@ class ProductController extends Controller
 
         return response()->json($output);
     }
+    public function liveFilter(Request $request)
+    {
+        $search = $request->search;
+        $categoryId = $request->category_id;
+
+        $products = Product::where('price', '<=', $search)
+            ->orWhere('category_id', $categoryId)
+            ->get();
+
+
+        return view('products.index', compact('products'));
+    }
+
+
+
+    // public function liveFilter(Request $request)
+    // {
+    //     //product and category
+    //     $search = $request->search;
+    //     $products = Product::where('price', '<=',  $search)->get();
+    //     return view('products.index', compact('products'));
+    // }
 }

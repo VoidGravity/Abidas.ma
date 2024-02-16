@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    
+
     <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        
+
     <style>
         @import 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet';
 
@@ -445,8 +445,49 @@
             <div class="welcome">
                 <div class="content rounded-3 p-3 d-flex justify-content-between">
                     <h1 class="fs-3">Welcome to Dashboard</h1>
-                    
-                    <a href="{{ url('product/create') }}" class="btn btn-primary">Create</a>
+                    <p>
+                        <a class="btn btn-warning" data-toggle="collapse" href="#collapseExample" role="button"
+                            aria-expanded="false" aria-controls="collapseExample">
+                            Filters
+                        </a>
+                        <a href="{{ url('product/create') }}" class="btn btn-primary">Create</a>
+                    </p>
+                </div>
+                <div class="collapse" id="collapseExample">
+                    <form action="{{url('/filter')}}" method="POST">
+                        @csrf
+                        <div class="card content card-body">
+
+                            <div class="d-flex justify-content-between">
+
+                                <div class="w-75">
+
+                                    <label for="customRange1" class="form-label">Price : </label>
+                                    <input type="range" class="form-range" id="customRange1" min="0"
+                                        max="1000" name="search" value="1000">
+                                    <div class="range-values d-flex justify-content-between">
+                                        <span>0 USD</span>
+                                        <span>250 USD</span>
+                                        <span>500 USD</span>
+                                        <span>750 USD</span>
+                                        <span>1000 USD</span>
+                                    </div>
+                                </div>
+                                <select name="category_id" class="btn btn-dark dropdown-toggle mt-3" aria-label="Default select example">
+                                    <option selected>Select a Category</option>
+                                    @foreach ($products as $Product_Item)
+                                        <option value="{{ $Product_Item->category->id }}">{{ $Product_Item->category->name }}
+                                        </option>
+                                        @endforeach
+                                </select>
+                                <button type="submit" class="btn btn-warning h-25 mt-4"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                                  </svg></button>
+                            </div>
+                            
+                        </div>
+                    </form>
+
                 </div>
             </div>
 
@@ -465,38 +506,46 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($products as $Product_Item)
-                    <tr>
-                        <th scope="row">-></th>
-                            <td>{{$Product_Item->name}}</td>
-                        <td>
-                            <img src="{{ asset('images/'.$Product_Item->image_path)}}" alt="image" style="width: 100px; height: 100px;">
-                        </td>
-                        <td>{{$Product_Item->description}}</td>
-                        <td>{{$Product_Item->category->name}}</td>
-                        <td>{{$Product_Item->price}}</td>
-                        <td>{{$Product_Item->tags}}</td>
-                        <td>
-                            
-                            
-                            <a href="{{ url('product/'.$Product_Item->id.'/delete') }}" class="btn btn-danger">Delete</a>
-                            <a href="{{ url('product/'.$Product_Item->id.'/edit') }}" class="btn btn-primary">Edit</a>
-                        </td>
-                    </tr>
+                    @foreach ($products as $Product_Item)
+                        <tr>
+                            <th scope="row">-></th>
+                            <td>{{ $Product_Item->name }}</td>
+                            <td>
+                                <img src="{{ asset('images/' . $Product_Item->image_path) }}" alt="image"
+                                    style="width: 100px; height: 100px;">
+                            </td>
+                            <td>{{ $Product_Item->description }}</td>
+                            <td>{{ $Product_Item->category->name }}</td>
+                            <td>{{ $Product_Item->price }}</td>
+                            <td>{{ $Product_Item->tags }}</td>
+                            <td>
+
+
+                                <a href="{{ url('product/' . $Product_Item->id . '/delete') }}"
+                                    class="btn btn-danger">Delete</a>
+                                <a href="{{ url('product/' . $Product_Item->id . '/edit') }}"
+                                    class="btn btn-primary">Edit</a>
+                            </td>
+                        </tr>
                     @endforeach
-                    
+
                 </tbody>
             </table>
 
         </div>
     </section>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
     <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+
     <script>
-        $(document).ready( function () {
+        $(document).ready(function() {
             $('#myTable').DataTable();
-        } );
+        });
     </script>
 </body>
 

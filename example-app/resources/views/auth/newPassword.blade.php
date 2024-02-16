@@ -12,19 +12,21 @@
 <body>
     <div class="login-page">
         <div class="form">
-            <h1 class="">Login</h1>
+            <h2 class="">Reset Password</h2>
             @if (session('fail'))
             <div class="alert alert-danger">
                 {{ session('fail') }}
             </div>
             @endif
            
-            <form class="login-form" method="post" action=" {{ route('auth.login')}} ">
+            <form class="login-form" method="post" action="{{ route('auth.newPassword') }}">
                 @csrf
-                <input name="password" type="text" placeholder="Please type your new Password" />
-                <button>Reset password</button>
-                <p class="message">Not registered? <a href="{{url('/register')}}">Create an account</a></p>
+                <input type="hidden" name="token" value="{{ request('token') }}" />
+                <input name="password" type="password" placeholder="Please type your new password" required />
+                <button type="submit">Reset password</button>
             </form>
+            
+            
         </div>
     </div>
     <style>

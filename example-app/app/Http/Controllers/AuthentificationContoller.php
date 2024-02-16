@@ -17,26 +17,66 @@ class AuthentificationContoller extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         // return view('auth.login');
     }
-    public function ShowReset(){
+    public function ShowReset()
+    {
         return view('auth.resetPassword');
     }
-    public function ResetPassord(Request $request){
+    public function showNewPasswordForm($token)
+    {
+        // Pass the token to the view to include it in a hidden field
+        return view('auth.newPassword', ['token' => $token]);
+    }
+    public function ResetPassord(Request $request)
+    {
         $user = User::where('email', $request->email)->first();
-        if($user){
+        if ($user) {
             $user->remember_token = Str::random(30);
             $user->save();
             Mail::to($user->email)->send(new ForgetPasswordMail($user));
             return redirect()->route('auth.login')->with('success', 'Reset password link has been sent to your email');
-        }
-        else{
+        } else {
             return back()->with('fail', 'No account found for this email');
         }
     }
-    
+    public function newPassword(Request $request)
+    {
+        $token = $request->input('token'); // Retrieve the token from the request
+        $user = User::where('remember_token', $token)->first();
+
+        if ($user) {
+            $user->password = Hash::make($request->password);
+            $user->remember_token = null; // Ensure to nullify the token
+            $user->save();
+
+            return redirect()->route('auth.login')->with('success', 'Password has been reset');
+        } else {
+            return back()->with('fail', 'Invalid token');
+        }
+    }
+
+
+    // public function newPassword(Request $request){
+
+    //     $user = User::where('remember_token', $request->token)->first();
+
+    //     if($user){
+    //         $user->password = Hash::make($request->password);
+    //         // $user->remember_token = null;
+    //         $user->save();
+    //         //reset token
+    //         // $user->remember_token = null;
+    //         return redirect()->route('auth.login')->with('success', 'Password has been reset');
+    //     }
+    //     else{
+    //         return back()->with('fail', 'Invalid token'. dd($request->token));
+    //     }
+    // }
+
     public function login()
     {
         return view('auth.login');
@@ -45,11 +85,11 @@ class AuthentificationContoller extends Controller
     {
         return view('auth.register');
     }
-    public function logout()
+    public function logout(Request $request)
     {
         //custom logout without auth
 
-        // $request->session()->forget('LoggedUser');
+        $request->session()->forget('LoggedUser');
 
         return view('auth.login')->with('success', 'You are now logged out');
         //flash message
@@ -60,7 +100,7 @@ class AuthentificationContoller extends Controller
         //     'name' => $request->name, // Make sure 'name' is the correct field you use for login.
         //     'password' => $request->password,
         // ];
-        
+
         $request->validate([
             'name' => 'required',
             'password' => 'required'
@@ -68,14 +108,14 @@ class AuthentificationContoller extends Controller
         $user = User::where('name', $request->name)->first();
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
-                $request->session()->put('LoggedUser', $user->role);
+                $request->session()->put('LoggedUser', $user->role_id);
                 return redirect('/product')->with('success', 'You are now logged in');
             } else {
                 return back()->with('fail', 'Invalid password');
             }
         } else {
             return back()->with('fail', 'No account found for this email');
-        }    
+        }
     }
 
     // public function check(Request $request)
