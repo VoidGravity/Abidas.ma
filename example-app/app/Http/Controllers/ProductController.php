@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
@@ -14,7 +15,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::with('category')->get();
+        //using paginate
+        $products = Product::with('category')->paginate(4);
+        // $products = Product::with('category')->get();
+        //paginate
+        // $products = DB::table('products')->paginate(5);
         return view('products.index', compact('products'));
         // return view('products.index');
     }

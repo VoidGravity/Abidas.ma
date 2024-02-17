@@ -492,7 +492,8 @@
             </div>
 
 
-            <table class="table table-dark" id="myTable">
+            {{-- <table class="table table-dark" id="myTable"> --}}
+            <table class="table table-dark">
                 <thead>
                     <tr>
                         <th scope="col"></th>
@@ -530,7 +531,14 @@
                     @endforeach
 
                 </tbody>
+                <div>
+                    {{-- pagination count --}}
+                    {{
+                        $products->count() > 0 ? $products->count() . ' of ' . $products->total() . ' products' : 'No products found'
+                    }}
+                </div>
             </table>
+            <div>{{ $products->links()}}</div>
 
         </div>
     </section>
