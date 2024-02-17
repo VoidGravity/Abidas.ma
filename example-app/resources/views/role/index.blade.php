@@ -473,7 +473,7 @@
                                     <div class="card card-dark">
                                         @foreach ($role->routes as $route)
                                             <!-- Assuming the relationship is named 'routes' -->
-                                            ->localhost{{ $route->route }}<br>
+                                            ->localhost:800/{{ $route->route }}<br>
                                             <!-- If 'route' is the column name in the 'routes' table -->
                                         @endforeach
                                     </div>

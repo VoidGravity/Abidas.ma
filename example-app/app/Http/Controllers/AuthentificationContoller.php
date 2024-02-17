@@ -87,9 +87,7 @@ class AuthentificationContoller extends Controller
     }
     public function logout(Request $request)
     {
-        //custom logout without auth
-
-        $request->session()->forget('LoggedUser');
+        $request->session()->invalidate();
 
         return view('auth.login')->with('success', 'You are now logged out');
         //flash message

@@ -18,6 +18,11 @@
                 {{ session('fail') }}
             </div>
             @endif
+            @if (session('access'))
+            <div class="alert alert-danger">
+                {{ session('access') }}
+            </div>
+            @endif
            
             <form class="login-form" method="post" action=" {{ route('auth.login')}} ">
                 @csrf

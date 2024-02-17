@@ -37,9 +37,7 @@ use Illuminate\Support\Facades\Route;
 //     Route::post('/',[AuthentificationContoller::class,"check"])->name('auth.login');
 // });
 
-// Route::group(['middleware' => 'guest'], function () {
-    //auth
-    // Route::get('/login', [AuthentificationContoller::class, "login"])->name('auth.login');
+
     Route::get('/login', [AuthentificationContoller::class, "login"])->name('login');
     Route::post('/login', [AuthentificationContoller::class, "check"])->name('auth.login');
     Route::get('/resetPassword', [AuthentificationContoller::class, "ShowReset"])->name('auth.resetPassword');
@@ -48,7 +46,8 @@ use Illuminate\Support\Facades\Route;
     Route::post('/newPassword', [AuthentificationContoller::class, "newPassword"])->name('auth.newPassword');
     Route::get('/register', [AuthentificationContoller::class, "register"])->name('auth.signin');
     Route::post('/register', [AuthentificationContoller::class, "store"]);
-// });
+    Route::delete('/logout', [AuthentificationContoller::class, 'logout'])->name('logout');
+
 Route::group(['middleware' => 'role'], function () {
 
 
@@ -97,5 +96,4 @@ Route::group(['middleware' => 'role'], function () {
     Route::get('/search', [ProductController::class, 'liveSearch']);
 
     //auth
-    Route::delete('/logout', [AuthentificationContoller::class, 'logout'])->name('logout');
 });

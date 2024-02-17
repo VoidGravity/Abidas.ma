@@ -458,7 +458,7 @@
                     @foreach ($routes as $item)
                     <tr>
 
-                        <td> localhost{{$item->route}}</td>
+                        <td> ->localhost:800/{{$item->route}}</td>
                         <td>
                         <a class="btn btn-primary" href="permission/{{$item->id}}/edit">edit</a>
                         <a  class="btn btn-danger" href="permission/{{$item->id}}/delete">delete</a>

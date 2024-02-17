@@ -18,50 +18,25 @@ class UserRoleMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $aloowedRoutes = ['login', 'register'];
-
         $uri = $request->route()->uri;
-        // dd($uri);
-        
-        // if (in_array($uri, $aloowedRoutes)) {
-        //     return $next($request);
-        // }
-        
-        $role_id = session('LoggedUser') ?? '';
-        
-        // dd($role_id);
-        
+        $role_id = session('LoggedUser'); // Handle potentially missing session data
+
         if ($role_id) {
-            $allowedRoutesMiddle = RolePermission::where('role_id', $role_id)->get();
-            $allowedRouteIds = $allowedRoutesMiddle->pluck('route_id');
-            $allowedRoutes = route::whereIn('id', $allowedRouteIds)->get();
-
+            // dd($role_id);
+            $allowedRoutes = Route::whereIn('id', RolePermission::where('role_id', $role_id)->pluck('route_id'))
+                ->pluck('route')
+                ->toArray();
             // dd($allowedRoutes);
-            foreach ($allowedRoutes as $allowedRoute) {
-                $allowedUri = $allowedRoute->route;
-                // dd($allowedUri);
-
-
-                if (count(explode('/', $uri)) > 2) {
-                    if (strstr($uri, $allowedUri)) {
-
-                        return $next($request);
-                    }
-                } else {
-                    // Check if the current URI matches the allowed URI
-                    if ($uri === $allowedUri) {
-                        return $next($request);
-                    }
-                }
+            if (in_array($uri, $allowedRoutes)) {
+                return $next($request);
             }
-
-            // If the URI is not allowed for the role, redirect to 'Notfound'
-            return redirect()->to('login');
-        } else {
-            // If there is no role_id in the session, redirect to 'Notfound'
-            return redirect()->to('login');
         }
+        $page = explode('/', $uri)[0];
+        // Handle both unauthorized access and missing session:
+        return redirect()->to('login')->with('access', 'You are not authorized to access this content of the '.$page.' page');
+        // return view('unauthorized',compact('uri'));
     }
+
     // public function handle(Request $request, Closure $next): Response
     // {
     //     // Define public routes that do not require permission
