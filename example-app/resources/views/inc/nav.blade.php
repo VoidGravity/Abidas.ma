@@ -9,16 +9,22 @@
                 <a class="navbar-brand" href="#">admin<span class="main-color">Adidas</span></a>
                 <div>
                     {{-- condition : if the user is loged in --}}
+                    @if (session('LoggedUser'))
+                    
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger  ">Logout</button>
                     </form>
+                    @else
+                    <a class="btn btn-primary" href="{{ route('auth.login') }}">SignIn</a>
+                    <a class="btn btn-warning" href="{{ route('auth.signin') }}">SignUp</a>
+                    @endif
+                    {{-- if the user is loged in --}}
+                    
 
                     {{-- else --}}
-                    <a class="btn btn-primary" href="{{ route('auth.login') }}">SignIn</a>
 
-                    <a class="btn btn-warning" href="{{ route('auth.signin') }}">SignUp</a>
                 </div>
             </div>
         </div>

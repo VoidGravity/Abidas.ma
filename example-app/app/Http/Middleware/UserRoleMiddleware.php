@@ -7,6 +7,7 @@ use App\Models\route;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route as FacadesRoute;
 use Symfony\Component\HttpFoundation\Response;
 
 class UserRoleMiddleware
@@ -18,7 +19,9 @@ class UserRoleMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $uri = $request->route()->uri;
+        // $uri = $request->route()->uri;
+        $routeName = FacadesRoute::currentRouteName();  
+        $CleanRouteName = str_replace(['.', ':'], ['_', '_'], $routeName);
         $role_id = session('LoggedUser'); // Handle potentially missing session data
 
         if ($role_id) {
@@ -27,13 +30,13 @@ class UserRoleMiddleware
                 ->pluck('route')
                 ->toArray();
             // dd($allowedRoutes);
-            if (in_array($uri, $allowedRoutes)) {
+            if (in_array($CleanRouteName, $allowedRoutes)) {
                 return $next($request);
             }
         }
-        $page = explode('/', $uri)[0];
+        $page = explode('/', $CleanRouteName)[0];
         // Handle both unauthorized access and missing session:
-        return redirect()->to('login')->with('access', 'You are not authorized to access this content of the '.$page.' page');
+        return redirect()->to('login')->with('access', 'You are not authorized to access the '.$page.' page');
         // return view('unauthorized',compact('uri'));
     }
 

@@ -20,7 +20,7 @@ class AuthentificationContoller extends Controller
 
     public function index()
     {
-        // return view('auth.login');
+        return view('HomePage.index');
     }
     public function ShowReset()
     {

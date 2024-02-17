@@ -3,7 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Route; // Update the import statement
 
 class GeneratePermissionsCommand extends Command
 {
@@ -26,7 +27,8 @@ class GeneratePermissionsCommand extends Command
      */
     public function handle()
     {
-        $routes = Route::getRoutes();
+        $routes = Route::getRoutes(); // Update the method call
+
         $permissions = [];
 
         foreach ($routes as $route) {
@@ -35,13 +37,20 @@ class GeneratePermissionsCommand extends Command
             if ($name) {
                 $permissionName = str_replace(['.', ':'], ['_', '_'], $name);
                 $permissions[] = [
-                    'name' => $permissionName,
-                    'guard_name' => 'web', // Ajuster si nécessaire
+                    'route' => $permissionName,
                 ];
             }
         }
-        Route::insert($permissions);
 
-        $this->info('Permissions générées avec succès !');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
+        DB::table('role_permissions')->truncate();
+        DB::table('routes')->truncate();
+
+        DB::table('routes')->insert($permissions);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
+
+        $this->info('Permissions generated successfully!');
     }
 }

@@ -453,7 +453,7 @@
                 <div class="text-white">
                 </div>
 
-                <div class="mt-8">
+                <div class="mt-8 mb-4 overflow-y-auto">
                     <form action="{{ url('/role/create') }}" method="post" class="flex flex-col items-center"
                         enctype="multipart/form-data">
                         @csrf

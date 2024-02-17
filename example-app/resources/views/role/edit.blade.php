@@ -453,14 +453,15 @@
                 <div class="text-white">
                 </div>
 
-                <div class="mt-8">
-                    <form action="{{ route('role.edit', ['id' => $data->id]) }}" method="post" class="flex flex-col items-center"
-                        enctype="multipart/form-data">
+                <div class="mt-8 mb-4 overflow-y-auto" >
+                    <form action="{{ route('role.edit', ['id' => $data->id]) }}" method="post"
+                        class="flex flex-col items-center " enctype="multipart/form-data">
                         @csrf
                         <input type="text" name="name" placeholder="Role"
-                            class="py-2 px-4 bg-gray-800 text-white rounded-md focus:outline-none mb-4" required value="{{$data->name}}"/>
+                            class="py-2 px-4 bg-gray-800 text-white rounded-md focus:outline-none mb-4" required
+                            value="{{ $data->name }}" />
                         {{-- adding the route using a select foreach --}}
-                    <div class="card">
+                        <div class="card overflow-y-auto  ">
 
                             @foreach ($permissions as $item)
                                 <div class="d-flex">
