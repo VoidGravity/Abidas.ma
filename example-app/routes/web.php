@@ -93,7 +93,7 @@ Route::group(['middleware' => 'role'], function () {
     //clients
     Route::get('/client', [UserController::class, 'index'])->name('client.index');
     //search
-    // Route::post('/search', [ProductController::class, 'search']);
+    // Route::post('/search', [ProductController::class, 'search'])->name('liveSearch');
     Route::get('/search', [ProductController::class, 'liveSearch'])->name('liveSearch');
 
     //auth

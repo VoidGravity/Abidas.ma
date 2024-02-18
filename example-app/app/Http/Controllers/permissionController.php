@@ -13,7 +13,7 @@ class permissionController extends Controller
      */
     public function index()
     {
-        $routes = route::all();
+        $routes = route::paginate(5);
         return view('permission.index',compact('routes'));
     }
 

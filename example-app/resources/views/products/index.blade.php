@@ -533,12 +533,12 @@
                 </tbody>
                 <div>
                     {{-- pagination count --}}
-                    {{
-                        $products->count() > 0 ? $products->count() . ' of ' . $products->total() . ' products' : 'No products found'
-                    }}
+                    {{-- {{ --}}
+                        {{-- // $products->count() > 0 ? $products->count() . ' of ' . $products->total() . ' products' : 'No products found' --}}
+                    {{-- }} --}}
                 </div>
             </table>
-            <div>{{ $products->links()}}</div>
+            {{-- <div>{{ $products->links()}}</div> --}}
 
         </div>
     </section>

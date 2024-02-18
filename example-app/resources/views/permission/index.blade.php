@@ -467,7 +467,11 @@
                     @endforeach
                     
                 </tbody>
+                
             </table>
+            <div>
+                {{ $routes->links() }}
+            </div>
 
         </div>
     </section>
