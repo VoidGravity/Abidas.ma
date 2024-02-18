@@ -452,15 +452,7 @@
             <div class="bg-gray-900 h-screen flex flex-col items-center justify-center text-center">
                 <div class="text-white">
                 </div>
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @else
-                <div class="alert alert-warning">
-                    {{ session('fail') }}
-                </div>
-                @endif
+               
                 <div class="mt-8">
                     <form action="{{ url('/sales/create') }}" method="post" class="flex flex-col items-center"
                         enctype="multipart/form-data">
@@ -491,7 +483,7 @@
                                     class="py-2 px-4 bg-gray-800 text-white rounded-md focus:outline-none mb-4"
                                     required>
                                     <option value="">Please choose the product : </option>
-                                    <option value="1">1 </option>
+                                    <option value="1">Product 1 </option>
                                     {{-- @foreach ($category as $item)
                                 //user id
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -502,7 +494,7 @@
                                     class="py-2 px-4 bg-gray-800 text-white rounded-md focus:outline-none mb-4"
                                     required>
                                     <option value="">Please choose the User : </option>
-                                    <option value="1">1 </option>
+                                    <option value="1">Admin </option>
                                     {{-- @foreach ($category as $item)
                                 //product id 
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -513,7 +505,7 @@
                                     class="py-2 px-4 bg-gray-800 text-white rounded-md focus:outline-none mb-4"
                                     required>
                                     <option value="">Please choose the sale status</option>
-                                    <option value="1">0</option>
+                                    <option value="1">Active</option>
                                 </select>
                             </div>
                         </div>

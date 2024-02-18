@@ -451,14 +451,14 @@
 
                 <thead>
                     <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Tags</th>
-                        <th scope="col">Tags</th>
-                        <th scope="col">Tags</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Notes</th>
+                        <th scope="col">Shipping Adress</th>
+                        <th scope="col">Payment Method</th>
+                        <th scope="col">Billing adress</th>
+                        <th scope="col">User name</th>
+                        <th scope="col">Product name</th>
+                        <th scope="col">Amount</th>
                         <th scope="col">date</th>
                         <th scope="col">Action</th>
                     </tr>

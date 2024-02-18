@@ -40,9 +40,9 @@
             <a href="{{ route('sales.index') }}">Sales</a>
        
         </li>
-        <li>
+        {{-- <li>
             <a href="{{ route('client.index') }}">Clients</a>
-        </li>
+        </li> --}}
         <li>
             <a href="{{ route('permission.index') }}">Permissions</a>
         </li>
